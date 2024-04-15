@@ -79,17 +79,30 @@ struct ContentView: View {
         number1 = Int.random(in: 1..<10)
         number2 = Int.random(in: 1..<10)
         
-        if Bool.random() {
-            // 50% 실행 - 정상 결과
+//        if Bool.random() {
+//            // 50% 실행 - 정상 결과
+//            resultNumber = number1 * number2
+//        } else {
+//            // 50% 실행 - 잘못된 결과
+//            // 정상 결과가 나올 경우 잘못된 결과가 나오도록 반복
+//            repeat {
+//                resultNumber = Int.random(in: 1..<100)
+//            } while resultNumber == (number1 * number2)
+//        }
+        
+        // 정답이 80% 확률
+        let seedNumber = Int.random(in: 0..<10)
+        
+        if seedNumber < 8 {
+            // 80% 실행 - 정상 결과 (0,1,2,3,4,5,6,7)
             resultNumber = number1 * number2
         } else {
-            // 50% 실행 - 잘못된 결과
-            // 정상 결과가 나올 경우 잘못된 결과가 나오도록 반복
+            // 20% 실행 - 잘못된 결과 (8,9)
             repeat {
-                resultNumber = Int.random(in: 1..<100)
+                let realResult = number1 * number2
+                resultNumber = Int.random(in: (realResult-3)..<(realResult+3))
             } while resultNumber == (number1 * number2)
         }
-        
     }
     
     // 정답 선택 시 로직
