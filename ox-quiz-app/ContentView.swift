@@ -19,66 +19,57 @@ struct ContentView: View {
         // UI 구성 및 로직 작성 부분
         VStack {
             Text("다음 수식은 맞을까요?")
-                .padding()
-                .font(.system(size: 30))
-//            Spacer()
+            Spacer()
             Text("\(number1) X \(number2) = \(resultNumber)")
-                .font(.system(size: 30))
+            Spacer()
             HStack {
                 Button {
-                    
+
                 } label: {
-                    Image(systemName: "checkmark.diamond.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.green)
-                    Text("맞음")
-                        .font(.system(size: 40, weight: .bold))
-                        .foregroundStyle(Color.green)
+                    HStack {
+                        Image(systemName: "checkmark.diamond.fill")
+//                            .resizable()
+//                            .frame(width: 40, height: 40)
+                        Text("맞음")
+                            .bold()
+                            
+                    }
+                    .foregroundStyle(.green)
                 }
                 .padding(.trailing)
                 Button {
-                    
+
                 } label: {
-                    Image(systemName: "xmark.diamond")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.red)
-                    Text("틀림")
-                        .font(.system(size: 40, weight: .bold))
-                        .foregroundStyle(Color.red)
+                    HStack {
+                        Image(systemName: "xmark.diamond")
+//                            .resizable()
+//                            .frame(width: 40, height: 40)
+                        Text("틀림")
+                            .bold()
+                            
+                    }
+                    .foregroundStyle(.red)
                 }
                 .padding(.leading)
 
             }
+            Spacer()
             HStack {
                 Text("\(countCorrect)개 맞춤")
                 Text("\(countWrong)개 틀림")
             }
-            .font(.system(size: 30))
+            Spacer()
             Button {
-
+                countCorrect = 0
+                countWrong = 0
             } label: {
                 Text("카운트 초기화")
-                    .font(.system(size: 30))
             }
             
         }
+        .font(.largeTitle)
+        .padding()
         
-        // 게임 시작 로직
-//        func reloadGame() {
-//
-//        }
-        
-        // 정답 선택 시 로직
-//        func selectCorrect() {
-//
-//        }
-        
-        // 오답 선택 시 로직
-//        func selectWrong() {
-//            
-//        }
     }
 }
 
