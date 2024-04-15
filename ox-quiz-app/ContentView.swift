@@ -24,54 +24,93 @@ struct ContentView: View {
             Spacer()
             HStack {
                 Button {
-
+                    selectCorrect()
+                    reloadGame()
                 } label: {
                     HStack {
                         Image(systemName: "checkmark.diamond.fill")
-//                            .resizable()
-//                            .frame(width: 40, height: 40)
                         Text("맞음")
                             .bold()
-                            
+                        
                     }
                     .foregroundStyle(.green)
                 }
                 .padding(.trailing)
                 Button {
-
+                    selectWrong()
+                    reloadGame()
                 } label: {
                     HStack {
                         Image(systemName: "xmark.diamond")
-//                            .resizable()
-//                            .frame(width: 40, height: 40)
                         Text("틀림")
                             .bold()
-                            
+                        
                     }
                     .foregroundStyle(.red)
                 }
                 .padding(.leading)
-
+                
             }
             Spacer()
             HStack {
+                Spacer()
                 Text("\(countCorrect)개 맞춤")
+                Spacer()
                 Text("\(countWrong)개 틀림")
+                Spacer()
             }
             Spacer()
-            Button {
+            Button("카운트 초기화") {
                 countCorrect = 0
                 countWrong = 0
-            } label: {
-                Text("카운트 초기화")
+                reloadGame()
             }
-            
         }
         .font(.largeTitle)
         .padding()
+        .onAppear {
+            reloadGame()
+        }
+    }
+        
+    // 게임 시작 로직
+    func reloadGame() {
+        print("새로운 게임이 시작되었습니다.")
+        number1 = Int.random(in: 1..<10)
+        number2 = Int.random(in: 1..<10)
+        
+        if Bool.random() {
+            // 50% 실행 - 정상 결과
+            resultNumber = number1 * number2
+        } else {
+            // 50% 실행 - 잘못된 결과
+            // 정상 결과가 나올 경우 잘못된 결과가 나오도록 반복
+            repeat {
+                resultNumber = Int.random(in: 1..<100)
+            } while resultNumber == (number1 * number2)
+        }
         
     }
+    
+    // 정답 선택 시 로직
+    func selectCorrect() {
+        if resultNumber == number1 * number2 {
+            countCorrect += 1
+        } else {
+            countWrong += 1
+        }
+    }
+    
+    // 오답 선택 시 로직
+    func selectWrong() {
+        if resultNumber == number1 * number2 {
+            countWrong += 1
+        } else {
+            countCorrect += 1
+        }
+    }
 }
+
 
 #Preview {
     ContentView()
